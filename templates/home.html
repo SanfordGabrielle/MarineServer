@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlaskApp</title>
+    <link rel="shortcut icon" href="#">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/searchbox.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='js/searchbox.js') }}"></script>
+    <script type = "text/javascript">
+        function clear() {
+            var form = document.getElementById("speciesform");
+            form.reset();
+        }
+    </script>
+</head>
+<body>
+    <h3>Marine Biological Search</h3>
+    <div class="search">
+        <input type="search" class="searchbox" autofocus/>
+    </div>
+    <div id="elementId" class="databox">
+        &nbsp;&nbsp;------------------------
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results<br>
+        &nbsp;&nbsp;------------------------
+        {% block content %}
+            {% for specie in species %}
+            <div class='post'>
+                <h2>&nbsp;{{ specie['name'] }}</h2>
+                <p>
+                    &nbsp;&nbsp;{{ specie['genus'] }}<br>
+                    &nbsp;&nbsp;{{ specie['max_age'] }} years<br>
+                    &nbsp;&nbsp;{{ specie['region'] }}<br>
+                    &nbsp;&nbsp;{{ specie['average_size'] }} feet<br>
+                </p>
+            </div>
+            {% endfor %}
+        {% endblock %}
+    </div>
+    <div class="entrybox">
+        <iframe name="ghost" id="ghost" style="display: none"></iframe>
+        <form id="speciesform" action="/insert" method="POST" target="ghost" onsubmit="clear()">
+            <input type="text" name="name" placeholder="name"/><br>
+            <input type="text" name="genus" placeholder="genus"/><br>
+            <input type="number" name="max_age" placeholder="max age"/><br>
+            <input type="text" name="region" placeholder="region"/><br>
+            <input type="number" name="average_size" placeholder="avg length in ft"/><br>
+            <button type="submit" onclick="clear_fields()">Add Species</button>
+        </form>
+    </div>
+
+</body>
+</html>
