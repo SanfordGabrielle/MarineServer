@@ -5,13 +5,7 @@
     <title>FlaskApp</title>
     <link rel="shortcut icon" href="#">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/searchbox.css') }}">
-    <script type="text/javascript" src="{{ url_for('static',filename='js/searchbox.js') }}"></script>
-    <script type = "text/javascript">
-        function clear() {
-            var form = document.getElementById("speciesform");
-            form.reset();
-        }
-    </script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/marineserver.js') }}"></script>
 </head>
 <body>
     <h3>Marine Biological Search</h3>
@@ -38,13 +32,13 @@
     </div>
     <div class="entrybox">
         <iframe name="ghost" id="ghost" style="display: none"></iframe>
-        <form id="speciesform" action="/insert" method="POST" target="ghost" onsubmit="clear()">
+        <form id="speciesform" action="/create" method="POST" target="ghost" onsubmit="return validateForm()">
             <input type="text" name="name" placeholder="name"/><br>
             <input type="text" name="genus" placeholder="genus"/><br>
             <input type="number" name="max_age" placeholder="max age"/><br>
             <input type="text" name="region" placeholder="region"/><br>
             <input type="number" name="average_size" placeholder="avg length in ft"/><br>
-            <button type="submit" onclick="clear_fields()">Add Species</button>
+            <button type="submit">Add Species</button>
         </form>
     </div>
 

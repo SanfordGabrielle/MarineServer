@@ -24,19 +24,16 @@ def index():
     return render_template('home.html', species=species)
 
 
-@app.route("/insert", methods=['POST'])
+@app.route("/create", methods=['POST'])
 def insertspecies():
-    print(request.form)
     data = request.form
     conn = get_db_connection()
     query = f'INSERT INTO species (name, genus, max_age, region, average_size)' \
             f' VALUES (?, ?, ?, ?, ?)'
-    print(query)
 
     data = list(data.values())
-    species = conn.execute(query, data)
+    conn.execute(query, data)
 
-    print(species)
     conn.commit()
     conn.close()
     return Response("{'a':'b'}", status=201, mimetype='application/json')
