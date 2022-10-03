@@ -31,8 +31,22 @@ def insertspecies():
     data = list(form.values())
 
     query = f'INSERT INTO species (name, genus, max_age, region, average_size)' \
-            f' VALUES (?, ?, ?, ?, ?)'
+            f'VALUES (?, ?, ?, ?, ?)'
     conn.execute(query, data)
+
+    conn.commit()
+    conn.close()
+    return Response("{'a':'b'}", status=201, mimetype='application/json')
+
+
+@app.route("/update", methods=['POST'])
+def updatespecies():
+    conn = get_db_connection()
+    form = request.form
+    data = list(form.values())
+
+    query = f'UPDATE species SET genus = ?, max_age = ?, region = ?, average_size = ? WHERE name = ?'
+    conn.execute(query, (data[1], data[2], data[3], data[4], data[0]))
 
     conn.commit()
     conn.close()

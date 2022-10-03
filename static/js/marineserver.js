@@ -15,6 +15,8 @@ function validateForm(buttonname)
             myForm.action = "/create";
         if(buttonname == "deletebutton")
             myForm.action = "/delete"
+        if(buttonname == "updatebutton")
+            myForm.action = "/update"
 
         myForm.submit();
         myForm.reset();
