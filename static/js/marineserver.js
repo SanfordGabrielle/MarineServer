@@ -1,14 +1,24 @@
-function validateForm()
+function validateForm(buttonname)
 {
     var myForm = document.getElementById("speciesform");
-    if (myForm["name"].value == "" || myForm["genus"].value == "" || myForm["max_age"].value == "" ||
-        myForm["region"].value == "" || myForm["average_size"].value == "")
+    if ((myForm["name"].value == "" || myForm["genus"].value == "" || myForm["max_age"].value == "" ||
+        myForm["region"].value == "" || myForm["average_size"].value == "") && buttonname != "deletebutton" )
     {
         alert("All fields must contain values!");
         return false;
     }
+    else
+    {
+        myForm.method = "post";
 
-    myForm.submit();
-    myForm.reset();
+        if(buttonname == "createbutton")
+            myForm.action = "/create";
+        if(buttonname == "deletebutton")
+            myForm.action = "/delete"
+
+        myForm.submit();
+        myForm.reset();
+    }
+
     return false;
 }

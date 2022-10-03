@@ -16,7 +16,7 @@ def get_db_connection():
     return conn
 
 
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/", methods=['POST', 'GET', 'DELETE'])
 def index():
     conn = get_db_connection()
     species = conn.execute('SELECT * FROM species').fetchall()
@@ -26,13 +26,27 @@ def index():
 
 @app.route("/create", methods=['POST'])
 def insertspecies():
-    data = request.form
     conn = get_db_connection()
+    form = request.form
+    data = list(form.values())
+
     query = f'INSERT INTO species (name, genus, max_age, region, average_size)' \
             f' VALUES (?, ?, ?, ?, ?)'
-
-    data = list(data.values())
     conn.execute(query, data)
+
+    conn.commit()
+    conn.close()
+    return Response("{'a':'b'}", status=201, mimetype='application/json')
+
+
+@app.route("/delete", methods=['POST'])
+def deletespecies():
+    conn = get_db_connection()
+    form = request.form
+    data = list(form.values())
+
+    query = f'DELETE FROM species WHERE name = ?'
+    conn.execute(query, (data[0],))
 
     conn.commit()
     conn.close()

@@ -32,13 +32,16 @@
     </div>
     <div class="entrybox">
         <iframe name="ghost" id="ghost" style="display: none"></iframe>
-        <form id="speciesform" action="/create" method="POST" target="ghost" onsubmit="return validateForm()">
+        <form id="speciesform" target="ghost" onsubmit="return validateForm(this.submitted)">
             <input type="text" name="name" placeholder="name"/><br>
             <input type="text" name="genus" placeholder="genus"/><br>
             <input type="number" name="max_age" placeholder="max age"/><br>
             <input type="text" name="region" placeholder="region"/><br>
             <input type="number" name="average_size" placeholder="avg length in ft"/><br>
-            <button type="submit">Add Species</button>
+            <input class="formbutton" onclick="this.form.submitted=this.name;" type="submit" name="createbutton" value="Add new species"/>
+            <br>
+            <br>
+            <input class="formbutton" onclick="this.form.submitted=this.name;" type="submit" name="deletebutton" value="Delete species"/>
         </form>
     </div>
 
