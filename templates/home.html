@@ -6,19 +6,35 @@
     <link rel="shortcut icon" href="#">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/searchbox.css') }}">
     <script type="text/javascript" src="{{ url_for('static',filename='js/marineserver.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script>
+        function searchSpecies()
+        {
+            var searchVal = encodeURIComponent( $('#searchbox').val() );
+            $.ajax({
+                type: "GET",
+                url: '/search' + '?name=' + searchVal,
+                success: function(data) {
+                    $('#resultsbox').html(data)
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <h3>Marine Biological Search</h3>
     <div class="search">
-        <input type="search" class="searchbox" autofocus/>
+        <form id="searchform" action="#" target="ghost" onsubmit="searchSpecies()">
+            <input type="search" name="searchbox" id="searchbox" class="searchbox" autofocus/>
+        </form>
     </div>
-    <div id="elementId" class="databox">
+    <div name="resultsbox" id="resultsbox" class="databox">
         &nbsp;&nbsp;------------------------
         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results<br>
         &nbsp;&nbsp;------------------------
         {% block content %}
             {% for specie in species %}
-            <div class='post'>
+            <div id="contentbox" class='post'>
                 <h2>&nbsp;{{ specie['name'] }}</h2>
                 <p>
                     &nbsp;&nbsp;{{ specie['genus'] }}<br>

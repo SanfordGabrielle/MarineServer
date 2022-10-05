@@ -24,3 +24,11 @@ function validateForm(buttonname)
 
     return false;
 }
+
+function enterKeyPressed(event)
+{
+    if (event.keyCode == 13)
+    {
+        alert("WOAH");
+    }
+}
