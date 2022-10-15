@@ -14,11 +14,12 @@ MarineServer uses Python's Flask framework to create a web server which communic
 - SQL
 - Javascript
 
-## To run
-TBD
+## Getting Started
+`git clone https://github.com/SanfordGabrielle/MarineServer.git`  
+`python init_db.py`  
+`python main.py`  
+Web browse `http://127.0.0.1:5000`
 
-## To stop
-TBD
-
-## For help
-TBD
+## Author
+Sanford Gabrielle [@SanfordGabrielle](https://github.com/SanfordGabrielle)  
+email: gabriellecorporate@gmail.com
